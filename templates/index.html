@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jay Rohit | Portfolio & Math Content Creator</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Portfolio of Jay Rohit, B.Tech IT Student, Python & Web Developer, Explore coding skills, projects, achievements, and chat with his AI assistant.">
+    <meta name="keywords" content="Jay Rohit, B.Tech IT, Python Developer, Web Developer, AI Chatbot, LeetCode, Portfolio">
+    <meta name="author" content="Jay Rohit">
+    <meta property="og:title" content="Jay Rohit | Portfolio & Math Content Creator">
+    <meta property="og:description" content="Personal portfolio of Jay Rohit showcasing skills in Python, Web Development, and Math Content Creation.">
+    <meta property="og:image" content="/static/images/profile.png">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://img.icons8.com/color/48/infinity.png" type="image/x-icon">
+
+    <!-- Tailwind CSS & FontAwesome Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0f172a',
+                        glassBg: 'rgba(255, 255, 255, 0.45)',
+                        glassBgDark: 'rgba(15, 23, 42, 0.45)',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-slate-50 dark:bg-darkBg text-slate-900 dark:text-slate-100 min-h-screen relative transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Animated Particles Canvas Background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+
+    <!-- Futuristic Preloader -->
+    <div id="loader-overlay" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white dark:bg-darkBg transition-opacity duration-500">
+    <div class="w-64 max-w-full px-4 text-center">
+        <div class="text-lg font-bold tracking-widest text-indigo-600 dark:text-indigo-400 uppercase mb-4">Jay Rohit</div>
+        <div class="w-full h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mb-2">
+            <div id="loader-bar" class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 w-0 transition-all duration-100"></div>
+        </div>
+        <div id="loader-text" class="text-xs text-slate-500 dark:text-slate-400 font-mono">1%</div>
+    </div>
+</div>
+
+    <!-- Nav Bar -->
+    <nav class="sticky top-0 z-50 glass-panel border-b border-slate-200/50 dark:border-slate-800/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0 flex items-center space-x-2">
+                    <a href="#hero" class="text-xl font-bold tracking-tight bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent flex items-center gap-1.5">
+                        <i class="fa-solid fa-infinity"></i>
+                        <span>Jay Rohit</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Nav -->
+                <div class="hidden lg:flex items-center space-x-6">
+                    <a href="#about" class="text-sm font-medium hover:text-indigo-500 transition-colors">About</a>
+                    <a href="#skills" class="text-sm font-medium hover:text-indigo-500 transition-colors">Skills</a>
+                    <a href="#projects" class="text-sm font-medium hover:text-indigo-500 transition-colors">Projects</a>
+                    <a href="#achievements" class="text-sm font-medium hover:text-indigo-500 transition-colors">Achievements</a>
+                    <a href="#timeline" class="text-sm font-medium hover:text-indigo-500 transition-colors">Timeline</a>
+                    <a href="#coding-profiles" class="text-sm font-medium hover:text-indigo-500 transition-colors">Coding</a>
+                    <a href="#blogs" class="text-sm font-medium hover:text-indigo-500 transition-colors">Blogs</a>
+                    <a href="#contact" class="text-sm font-medium hover:text-indigo-500 transition-colors">Contact</a>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" type="button" class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none rounded-lg text-sm p-2.5">
+                        <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center lg:hidden">
+                    <button id="theme-toggle-mobile" onclick="document.getElementById('theme-toggle').click()" class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 p-2 mr-2 rounded-lg">
+                        <i class="fa-solid fa-circle-half-stroke text-lg"></i>
+                    </button>
+                    <button id="mobile-menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg class="h-6 w-6 hidden close-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200/50 dark:border-slate-800/50 px-4 pt-2 pb-4 space-y-1 bg-white/95 dark:bg-darkBg/95 backdrop-blur-md">
+            <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">About</a>
+            <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Skills</a>
+            <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Projects</a>
+            <a href="#achievements" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Achievements</a>
+            <a href="#timeline" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Timeline</a>
+            <a href="#coding-profiles" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Coding</a>
+            <a href="#blogs" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Blogs</a>
+            <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Contact</a>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        <!-- 1. Hero Section -->
+        <section id="hero" class="min-h-[calc(100vh-4rem)] flex items-center py-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+                <!-- Hero Text -->
+                <div class="lg:col-span-7 flex flex-col space-y-6 order-2 lg:order-1 text-center lg:text-left">
+                    <div class="inline-flex items-center self-center lg:self-start px-3 py-1.5 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                        <span class="flex h-2 w-2 relative mr-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                        </span>
+                        Open to Internships & Freelancing
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+                        Hi, I'm <span class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">Jay Rohit</span>
+                    </h1>
+                    <div class="h-8 text-xl sm:text-2xl font-bold text-slate-700 dark:text-slate-300">
+                        I am a <span id="typing-text" class="text-indigo-500 dark:text-indigo-400 typing-cursor"></span>
+                    </div>
+                    <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        An ambitious B.Tech IT student merging the analytical beauty of mathematics with creative full-stack software engineering. I build platforms and solve complex data problems.
+                    </p>
+                    
+                    <!-- Call To Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#contact" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-xl text-center shadow-lg hover:shadow-indigo-500/20 hover-glow transition-all duration-300">
+                            Contact Me <i class="fa-solid fa-paper-plane ml-2"></i>
+                        </a>
+                        <a href="static/resume.pdf" target="_blank" class="w-full sm:w-auto px-8 py-3.5 bg-slate-200 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-medium rounded-xl text-center border border-slate-300/50 dark:border-slate-700/50 transition-all duration-300">
+                            Download Resume <i class="fa-solid fa-download ml-2"></i>
+                        </a>
+                    </div>
+
+                    <!-- Social Icons -->
+                    <div class="flex items-center justify-center lg:justify-start space-x-6 pt-4 text-2xl text-slate-500 dark:text-slate-400">
+                        <a href="https://github.com/jayrohit0310" target="_blank" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/jay-rohit-8204ab320?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                <!-- Hero Profile Image Frame -->
+                <div class="lg:col-span-5 flex justify-center order-1 lg:order-2">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 group">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 rounded-3xl blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
+                        <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 rounded-3xl rotate-6 scale-95 group-hover:rotate-12 transition-transform duration-500"></div>
+                        <div class="relative w-full h-full rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl glass-panel">
+                            <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Jay Rohit Avatar" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. About Section -->
+        <section id="about" class="py-20 fade-on-scroll">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">About Me</h2>
+                <div class="h-1 w-20 bg-indigo-500 mx-auto rounded"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+                <div class="glass-panel p-8 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-indigo-500"></i>
+                            My Journey
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                            I am currently pursuing a Bachelor of Technology in Information Technology. My academic trajectory has provided a strong bedrock in fundamental software designs, computer networks, and structural algorithms.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Beyond standard coursework, I dedicate my days to full-stack programming, writing modular automation scripts, and exploring neural networks. I believe code is the canvas where mathematical theories become functional realities.
+                        </p>
+                    </div>
+                    <div class="mt-6 p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/10 text-sm text-indigo-600 dark:text-indigo-400">
+                        <strong>Goal:</strong> Building efficient, scalable, and intelligent software to solve educational and industrial roadblocks.
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col items-center text-center">
+                        
+
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col items-center text-center">
+                        <div class="w-12 h-12 bg-pink-500/10 rounded-xl flex items-center justify-center text-pink-500 text-xl mb-4">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">AI & Problem Solving</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Integrating LLMs, writing intelligent rule engines, and solving algorthimic puzzles daily.
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col items-center text-center">
+                        <div class="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-500 text-xl mb-4">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Full-Stack Coding</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Writing modular backend APIs using Python (Flask/FastAPI) and reactive frontends in Next.js.
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col items-center text-center">
+                        <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 text-xl mb-4">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Freelancer & Collaborator</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Connecting with peers, helping businesses automate jobs, and building responsive client webs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Skills Section -->
+        <section id="skills" class="py-20 fade-on-scroll">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Technical Skills</h2>
+                <div class="h-1 w-20 bg-indigo-500 mx-auto rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Programming -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50">
+                    <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-terminal text-indigo-500"></i> Programming
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1">
+                                <span>Python</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div class="skill-bar-fill bg-indigo-600 h-full rounded-full" data-percent="90"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1">
+                                <span>C++</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div class="skill-bar-fill bg-indigo-600 h-full rounded-full" data-percent="80"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1">
+                                <span>JavaScript</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div class="skill-bar-fill bg-indigo-600 h-full rounded-full" data-percent="85"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frontend -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50">
+                    <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-cubes text-purple-500"></i> Frontend Dev
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1">
+                                <span>HTML5 & CSS3</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div class="skill-bar-fill bg-purple-600 h-full rounded-full" data-percent="95"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1">
+                                <span>React & Next.js</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div class="skill-bar-fill bg-purple-600 h-full rounded-full" data-percent="80"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1">
+                                <span>Tailwind CSS</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div class="skill-bar-fill bg-purple-600 h-full rounded-full" data-percent="90"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50">
+                    <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-server text-pink-500"></i> Backend & API
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1">
+                                <span>Flask / FastAPI</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div class="skill-bar-fill bg-pink-600 h-full rounded-full" data-percent="85"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1">
+                                <span>Node.js</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div class="skill-bar-fill bg-pink-600 h-full rounded-full" data-percent="75"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Databases -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 md:col-span-2 lg:col-span-1">
+                    <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-database text-emerald-500"></i> Database Systems
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1">
+                                <span>MongoDB</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div class="skill-bar-fill bg-emerald-600 h-full rounded-full" data-percent="80"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1">
+                                <span>PostgreSQL & MySQL</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                <div class="skill-bar-fill bg-emerald-600 h-full rounded-full" data-percent="85"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Developer Tools -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 md:col-span-2">
+                    <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-screwdriver-wrench text-blue-500"></i> Dev Tools & Practices
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center space-x-3 p-3 bg-white/50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-700/50">
+                            <i class="fa-brands fa-git-alt text-2xl text-orange-500"></i>
+                            <span class="text-sm font-medium">Git Version Control</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-white/50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-700/50">
+                            <i class="fa-brands fa-github text-2xl text-slate-800 dark:text-white"></i>
+                            <span class="text-sm font-medium">GitHub Workflows</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-white/50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-700/50">
+                            <i class="fa-solid fa-code text-2xl text-blue-500"></i>
+                            <span class="text-sm font-medium">VS Code Config</span>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-white/50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-700/50">
+                            <i class="fa-brands fa-docker text-2xl text-sky-500"></i>
+                            <span class="text-sm font-medium">Containerization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Projects Section -->
+        <section id="projects" class="py-20 fade-on-scroll">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">My Projects</h2>
+                <div class="h-1 w-20 bg-indigo-500 mx-auto rounded"></div>
+            </div>
+
+            <!-- Categories Filter -->
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
+                <button data-filter="all" class="filter-btn px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-indigo-600 text-white shadow-md">All</button>
+                <button data-filter="python" class="filter-btn px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">Python</button>
+                <button data-filter="web" class="filter-btn px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">Web</button>
+                <button data-filter="ai" class="filter-btn px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">AI</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: Math+AI Learning Platform -->
+                <div class="project-card glass-panel rounded-3xl border border-slate-200/50 dark:border-slate-800/50 overflow-hidden flex flex-col justify-between hover-glow transition-all duration-300" data-categories="web ai">
+                    <div>
+                        <div class="h-48 w-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white relative">
+                            <i class="fa-solid fa-infinity text-6xl opacity-30 animate-pulse"></i>
+                            <div class="absolute bottom-4 left-4 flex gap-1.5">
+                                <span class="bg-indigo-900/60 backdrop-blur-md text-[10px] text-white font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Web</span>
+                                <span class="bg-purple-900/60 backdrop-blur-md text-[10px] text-white font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">AI</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Math+AI Learning Platform</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                                A next-generation platform combining custom step-by-step math solver heuristics with LLM integration to assist B.Tech students in solving complex algebraic problems.
+                            </p>
+                            <div class="flex flex-wrap gap-2 text-xs font-semibold text-indigo-500">
+                                <span>Next.js</span> • <span>FastAPI</span> • <span>Tailwind CSS</span> • <span>OpenAI</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 flex gap-4">
+                        <a href="https://github.com/jayrohit0310" target="_blank" class="flex-1 py-2.5 border border-indigo-500/30 text-indigo-500 rounded-xl text-center text-xs font-bold hover:bg-indigo-500/10 transition-colors">
+                            <i class="fa-brands fa-github mr-1.5 text-sm"></i> GitHub
+                        </a>
+                        <a href="#demo" onclick="alert('Demo server booting... (Mock redirect)')" class="flex-1 py-2.5 bg-indigo-600 text-white rounded-xl text-center text-xs font-bold hover:bg-indigo-700 transition-colors shadow-md">
+                            Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1.5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2: Stock Portfolio Tracker -->
+                <div class="project-card glass-panel rounded-3xl border border-slate-200/50 dark:border-slate-800/50 overflow-hidden flex flex-col justify-between hover-glow transition-all duration-300" data-categories="python web">
+                    <div>
+                        <div class="h-48 w-full bg-gradient-to-br from-pink-500 to-indigo-600 flex items-center justify-center text-white relative">
+                            <i class="fa-solid fa-chart-line text-6xl opacity-30"></i>
+                            <div class="absolute bottom-4 left-4 flex gap-1.5">
+                                <span class="bg-pink-900/60 backdrop-blur-md text-[10px] text-white font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Python</span>
+                                <span class="bg-indigo-900/60 backdrop-blur-md text-[10px] text-white font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Web</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Stock Portfolio Tracker</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                                A Flask application connected to financial APIs to track stock values, calculate mathematical portfolio gains, and log transactions using a MongoDB database.
+                            </p>
+                            <div class="flex flex-wrap gap-2 text-xs font-semibold text-indigo-500">
+                                <span>Python</span> • <span>Flask</span> • <span>MongoDB</span> • <span>Chart.js</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 flex gap-4">
+                        <a href="https://github.com/jayrohit0310" target="_blank" class="flex-1 py-2.5 border border-indigo-500/30 text-indigo-500 rounded-xl text-center text-xs font-bold hover:bg-indigo-500/10 transition-colors">
+                            <i class="fa-brands fa-github mr-1.5 text-sm"></i> GitHub
+                        </a>
+                        <a href="#demo" onclick="alert('Demo server booting... (Mock redirect)')" class="flex-1 py-2.5 bg-indigo-600 text-white rounded-xl text-center text-xs font-bold hover:bg-indigo-700 transition-colors shadow-md">
+                            Live Demo <i class="fa-solid fa-arrow-up-right-from-square ml-1.5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3: Restaurant Order System -->
+                <div class="project-card glass-panel rounded-3xl border border-slate-200/50 dark:border-slate-800/50 overflow-hidden flex flex-col justify-between hover-glow transition-all duration-300" data-categories="python">
+                    <div>
+                        <div class="h-48 w-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white relative">
+                            <i class="fa-solid fa-utensils text-6xl opacity-30"></i>
+                            <div class="absolute bottom-4 left-4 flex gap-1.5">
+                                <span class="bg-purple-900/60 backdrop-blur-md text-[10px] text-white font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Python</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Restaurant Order System</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                                A desktop-based ordering system that tracks menus, builds bills, prints invoices, and records receipts in local databases with an intuitive interface.
+                            </p>
+                            <div class="flex flex-wrap gap-2 text-xs font-semibold text-indigo-500">
+                                <span>Python</span> • <span>Tkinter</span> • <span>MySQL</span> • <span>Pillow</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 flex gap-4">
+                        <a href="https://github.com/jayrohit0310" target="_blank" class="w-full py-2.5 border border-indigo-500/30 text-indigo-500 rounded-xl text-center text-xs font-bold hover:bg-indigo-500/10 transition-colors">
+                            <i class="fa-brands fa-github mr-1.5 text-sm"></i> GitHub Source Code
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 4: Python Automation Scripts -->
+                <div class="project-card glass-panel rounded-3xl border border-slate-200/50 dark:border-slate-800/50 overflow-hidden flex flex-col justify-between hover-glow transition-all duration-300" data-categories="python">
+                    <div>
+                        <div class="h-48 w-full bg-gradient-to-br from-indigo-600 to-emerald-500 flex items-center justify-center text-white relative">
+                            <i class="fa-solid fa-gears text-6xl opacity-30"></i>
+                            <div class="absolute bottom-4 left-4 flex gap-1.5">
+                                <span class="bg-indigo-900/60 backdrop-blur-md text-[10px] text-white font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Python</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Python Automation Scripts</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                                Scripts automating bulk image compression, directory structures cleaning, automated daily database backups, and custom CSV data cleaning algorithms.
+                            </p>
+                            <div class="flex flex-wrap gap-2 text-xs font-semibold text-indigo-500">
+                                <span>Python</span> • <span>OS</span> • <span>Pandas</span> • <span>BeautifulSoup</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 flex gap-4">
+                        <a href="https://github.com/jayrohit0310" target="_blank" class="w-full py-2.5 border border-indigo-500/30 text-indigo-500 rounded-xl text-center text-xs font-bold hover:bg-indigo-500/10 transition-colors">
+                            <i class="fa-brands fa-github mr-1.5 text-sm"></i> GitHub Source Code
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 5: Rule-Based Chatbot -->
+                <div class="project-card glass-panel rounded-3xl border border-slate-200/50 dark:border-slate-800/50 overflow-hidden flex flex-col justify-between hover-glow transition-all duration-300" data-categories="python ai">
+                    <div>
+                        <div class="h-48 w-full bg-gradient-to-br from-emerald-500 to-purple-600 flex items-center justify-center text-white relative">
+                            <i class="fa-regular fa-comments text-6xl opacity-30"></i>
+                            <div class="absolute bottom-4 left-4 flex gap-1.5">
+                                <span class="bg-emerald-900/60 backdrop-blur-md text-[10px] text-white font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Python</span>
+                                <span class="bg-purple-900/60 backdrop-blur-md text-[10px] text-white font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">AI</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Rule-Based Chatbot</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                                A smart rule engine parsing customer responses using syntax patterns, custom weight matching scoring, and fallback flows. Used to handle FAQs.
+                            </p>
+                            <div class="flex flex-wrap gap-2 text-xs font-semibold text-indigo-500">
+                                <span>Python</span> • <span>NLTK</span> • <span>Regular Expressions</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 flex gap-4">
+                        <a href="https://github.com/jayrohit0310" target="_blank" class="w-full py-2.5 border border-indigo-500/30 text-indigo-500 rounded-xl text-center text-xs font-bold hover:bg-indigo-500/10 transition-colors">
+                            <i class="fa-brands fa-github mr-1.5 text-sm"></i> GitHub Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Achievements Section -->
+        <section id="achievements" class="py-20 fade-on-scroll">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">My Achievements</h2>
+                <div class="h-1 w-20 bg-indigo-500 mx-auto rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Created a highly active math content brand on Instagram sharing daily logic puzzles.</p>
+                </div>
+
+                <!-- Stat 2: Coding Solved -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 text-center hover-glow transition-all duration-300">
+                    <div class="w-12 h-12 bg-indigo-500/10 text-indigo-500 rounded-xl flex items-center justify-center text-xl mx-auto mb-4">
+                        <i class="fa-solid fa-puzzle-piece"></i>
+                    </div>
+                    <div class="text-3xl font-extrabold text-indigo-500 mb-2">300+</div>
+                    <div class="font-bold text-sm mb-1">DSA Problems Solved</div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Solved coding tasks across multiple coding platforms including LeetCode.</p>
+                </div>
+
+                <!-- Stat 3: Community Building -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 text-center hover-glow transition-all duration-300">
+                    <div class="w-12 h-12 bg-purple-500/10 text-purple-500 rounded-xl flex items-center justify-center text-xl mx-auto mb-4">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div class="text-3xl font-extrabold text-indigo-500 mb-2">Engaged</div>
+                    <div class="font-bold text-sm mb-1">Community Growth</div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Established an interactive hub of learners studying B.Tech courses and competitive maths.</p>
+                </div>
+
+                <!-- Stat 4: Quizzes Created -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50 text-center hover-glow transition-all duration-300">
+                    <div class="w-12 h-12 bg-emerald-500/10 text-emerald-500 rounded-xl flex items-center justify-center text-xl mx-auto mb-4">
+                        <i class="fa-solid fa-circle-question"></i>
+                    </div>
+                    <div class="text-3xl font-extrabold text-indigo-500 mb-2">50+</div>
+                    <div class="font-bold text-sm mb-1">Quizzes Built</div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Designed visual math quizzes and automation metrics to rank participant answers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Certificates Section -->
+        <section id="certificates" class="py-20 fade-on-scroll">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Certifications</h2>
+                <div class="h-1 w-20 bg-indigo-500 mx-auto rounded"></div>
+            </div>
+
+            <!-- Featured Certificates Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Cert 1: CodeAlpha Internship -->
+                <div class="glass-panel p-4 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover-glow transition-all duration-300">
+                    <div>
+                        <!-- Picture Preview Container -->
+                        <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-slate-200/30 bg-slate-800/50 dark:bg-slate-900/50 relative group cursor-pointer" onclick="openCertificate('/static/images/CodeAlpha_certificate__Rohit Jay Vishnubhai.pdf')">
+                            <img src="/static/images/cert_webdev.png" alt="CodeAlpha Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                                <i class="fa-solid fa-up-right-from-square text-white text-2xl animate-pulse"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-base font-bold mb-1">Web Dev Internship Certificate</h3>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-3">Issued by: CodeAlpha</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4">Verified programming credentials during a software internship focused on reactive pages and REST APIs.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="openCertificate('/static/images/CodeAlpha_certificate__Rohit Jay Vishnubhai.pdf')" class="flex-1 py-2 text-xs font-bold text-indigo-500 border border-indigo-500/20 rounded-xl hover:bg-indigo-500/10 transition-colors">
+                            View PDF
+                        </button>
+                        <a href="/static/images/CodeAlpha_certificate__Rohit Jay Vishnubhai.pdf" download="CodeAlpha_certificate__Rohit Jay Vishnubhai.pdf" class="flex-1 py-2 text-xs font-bold bg-indigo-600 text-white rounded-xl text-center hover:bg-indigo-700 transition-colors shadow-md">
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cert 2: FODSA Coursera -->
+                <div class="glass-panel p-4 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover-glow transition-all duration-300">
+                    <div>
+                        <!-- Picture Preview Container -->
+                        <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-slate-200/30 bg-slate-800/50 dark:bg-slate-900/50 relative group cursor-pointer" onclick="openCertificate('/static/images/FODSA - Coursera.pdf')">
+                            <img src="/static/images/cert_dsa.png" alt="Foundations of DSA Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                                <i class="fa-solid fa-up-right-from-square text-white text-2xl animate-pulse"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-base font-bold mb-1">Foundations of DSA</h3>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-3">Issued by: Coursera (University Course)</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4">Comprehensive course covering runtime complexity analysis, sorting methods, queues, and tree logic.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="openCertificate('/static/images/FODSA - Coursera.pdf')" class="flex-1 py-2 text-xs font-bold text-indigo-500 border border-indigo-500/20 rounded-xl hover:bg-indigo-500/10 transition-colors">
+                            View PDF
+                        </button>
+                        <a href="/static/images/FODSA - Coursera.pdf" download="FODSA - Coursera.pdf" class="flex-1 py-2 text-xs font-bold bg-indigo-600 text-white rounded-xl text-center hover:bg-indigo-700 transition-colors shadow-md">
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cert 3: Core Java Specialization -->
+                <div class="glass-panel p-4 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover-glow transition-all duration-300">
+                    <div>
+                        <!-- Picture Preview Container -->
+                        <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-slate-200/30 bg-slate-800/50 dark:bg-slate-900/50 relative group cursor-pointer" onclick="openCertificate('/static/images/Core Java specialization Coursera.pdf')">
+                            <img src="/static/images/cert_dsa.png" alt="Core Java Specialization" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                                <i class="fa-solid fa-up-right-from-square text-white text-2xl animate-pulse"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-base font-bold mb-1">Core Java Specialization</h3>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-3">Issued by: Coursera</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4">Covers complex OOP structures, interface constructs, handling classes, exceptions, and library functions.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="openCertificate('/static/images/Core Java specialization Coursera.pdf')" class="flex-1 py-2 text-xs font-bold text-indigo-500 border border-indigo-500/20 rounded-xl hover:bg-indigo-500/10 transition-colors">
+                            View PDF
+                        </button>
+                        <a href="/static/images/Core Java specialization Coursera.pdf" download="Core Java specialization Coursera.pdf" class="flex-1 py-2 text-xs font-bold bg-indigo-600 text-white rounded-xl text-center hover:bg-indigo-700 transition-colors shadow-md">
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cert 4: JavaScript Essentials -->
+                <div class="glass-panel p-4 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover-glow transition-all duration-300">
+                    <div>
+                        <!-- Picture Preview Container -->
+                        <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-slate-200/30 bg-slate-800/50 dark:bg-slate-900/50 relative group cursor-pointer" onclick="openCertificate('/static/images/javascript programming essential - Coursera.pdf')">
+                            <img src="/static/images/cert_webdev.png" alt="JavaScript Programming Essentials" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                                <i class="fa-solid fa-up-right-from-square text-white text-2xl animate-pulse"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-base font-bold mb-1">JavaScript Essentials</h3>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-3">Issued by: Coursera</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4">Course verifying vanilla scripting skills, asynchronous event loops, callback hooks, and DOM models.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="openCertificate('/static/images/javascript programming essential - Coursera.pdf')" class="flex-1 py-2 text-xs font-bold text-indigo-500 border border-indigo-500/20 rounded-xl hover:bg-indigo-500/10 transition-colors">
+                            View PDF
+                        </button>
+                        <a href="/static/images/javascript programming essential - Coursera.pdf" download="javascript programming essential - Coursera.pdf" class="flex-1 py-2 text-xs font-bold bg-indigo-600 text-white rounded-xl text-center hover:bg-indigo-700 transition-colors shadow-md">
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cert 5: Seaborn Visualization -->
+                <div class="glass-panel p-4 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover-glow transition-all duration-300">
+                    <div>
+                        <!-- Picture Preview Container -->
+                        <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-slate-200/30 bg-slate-800/50 dark:bg-slate-900/50 relative group cursor-pointer" onclick="openCertificate('/static/images/certificate Datacamp - introduction to data visualization with seaborn.pdf')">
+                            <img src="/static/images/cert_python.png" alt="Seaborn Visualization Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                                <i class="fa-solid fa-up-right-from-square text-white text-2xl animate-pulse"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-base font-bold mb-1">Seaborn Visualization</h3>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-3">Issued by: DataCamp</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4">Practical skill certificate demonstrating data analysis, plotting data sets, and designing chart heatmaps.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="openCertificate('/static/images/certificate Datacamp - introduction to data visualization with seaborn.pdf')" class="flex-1 py-2 text-xs font-bold text-indigo-500 border border-indigo-500/20 rounded-xl hover:bg-indigo-500/10 transition-colors">
+                            View PDF
+                        </button>
+                        <a href="/static/images/certificate Datacamp - introduction to data visualization with seaborn.pdf" download="certificate_datacamp_seaborn.pdf" class="flex-1 py-2 text-xs font-bold bg-indigo-600 text-white rounded-xl text-center hover:bg-indigo-700 transition-colors shadow-md">
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cert 6: Edunet Completion -->
+                <div class="glass-panel p-4 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover-glow transition-all duration-300">
+                    <div>
+                        <!-- Picture Preview Container -->
+                        <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-slate-200/30 bg-slate-800/50 dark:bg-slate-900/50 relative group cursor-pointer" onclick="openCertificate('/static/images/Jay Rohit_Completion ( EDUNET Foundation).pdf')">
+                            <img src="/static/images/cert_python.png" alt="Edunet Completion Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                                <i class="fa-solid fa-up-right-from-square text-white text-2xl animate-pulse"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-base font-bold mb-1">Edunet Completion</h3>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-3">Issued by: Edunet Foundation</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-4">Completed technical skills program focused on foundational Python scripts, SQL, and algorithm structures.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="openCertificate('/static/images/Jay Rohit_Completion ( EDUNET Foundation).pdf')" class="flex-1 py-2 text-xs font-bold text-indigo-500 border border-indigo-500/20 rounded-xl hover:bg-indigo-500/10 transition-colors">
+                            View PDF
+                        </button>
+                        <a href="/static/images/Jay Rohit_Completion ( EDUNET Foundation).pdf" download="Jay_Rohit_Completion_Edunet.pdf" class="flex-1 py-2 text-xs font-bold bg-indigo-600 text-white rounded-xl text-center hover:bg-indigo-700 transition-colors shadow-md">
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion dropdown for additional certificates -->
+            <div class="mt-12 text-center">
+                <details class="group glass-panel rounded-3xl border border-slate-200/50 dark:border-slate-800/50 overflow-hidden max-w-5xl mx-auto">
+                    <summary class="flex justify-between items-center px-6 py-4 font-bold text-sm select-none cursor-pointer bg-slate-100/50 dark:bg-slate-800/20 list-none">
+                        <span class="flex items-center gap-2 text-indigo-500">
+                            <i class="fa-solid fa-list-check"></i> Show Additional Certifications (13 More)
+                        </span>
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" class="text-slate-400"><path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="p-6 border-t border-slate-200/30 dark:border-slate-800/30 text-left bg-white/20 dark:bg-slate-900/10">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <!-- Additional Item 1 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">Computer Organization</div>
+                                        <div class="text-[9px] text-slate-400">24IT085 College Verification</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/24IT085_Introduction to Computer Organization.pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+
+                            <!-- Additional Item 2 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">IBM Design Thinking 1</div>
+                                        <div class="text-[9px] text-slate-400">IBM Credential (2026-01-24)</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/IBMDesign20260124-30-szwx1b.pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+
+                            <!-- Additional Item 3 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">IBM Design Thinking 2</div>
+                                        <div class="text-[9px] text-slate-400">IBM Credential (2026-01-26)</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/IBMDesign20260126-33-jvmhsd.pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+
+                            <!-- Additional Item 4 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">Introduction to Java</div>
+                                        <div class="text-[9px] text-slate-400">Coursera Certification</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/Introduction to java - Coursera.pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+
+                            <!-- Additional Item 5 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">OOP in Java</div>
+                                        <div class="text-[9px] text-slate-400">Coursera Certification</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/Introduction to oop in java - Coursera.pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+
+                            <!-- Additional Item 6 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">OOP Hierarchies in Java</div>
+                                        <div class="text-[9px] text-slate-400">Coursera Certification</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/Object oriented hierarchies in java - Coursera.pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+
+                            <!-- Additional Item 7 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">Java Class Library</div>
+                                        <div class="text-[9px] text-slate-400">Coursera Certification</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/java class library - Coursera.pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+
+                            <!-- Additional Item 8 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">Data Storytelling Concepts</div>
+                                        <div class="text-[9px] text-slate-400">DataCamp Certification</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/certificate- datacamp- data storytelling concepts.pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+
+                            <!-- Additional Item 9 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">Data Vis with Matplotlib</div>
+                                        <div class="text-[9px] text-slate-400">DataCamp Certification</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/certificate-introduction to data visualization with matplotlib(DataCamp).pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+
+                            <!-- Additional Item 10 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">General DataCamp Cert</div>
+                                        <div class="text-[9px] text-slate-400">DataCamp Core Course</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/certificate datacamp.pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+
+                            <!-- Additional Item 11 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">Coders Arcade 2.0</div>
+                                        <div class="text-[9px] text-slate-400">Hackathon Challenge Result</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/coders-arcade2.0.pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+
+                            <!-- Additional Item 12 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">Wired Wonders Challenge</div>
+                                        <div class="text-[9px] text-slate-400">Tech Solving Certificate</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/Wired_wonders.pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+
+                            <!-- Additional Item 13 -->
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/50 dark:bg-slate-800/30 border border-slate-200/30 dark:border-slate-800/30">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                                    <div class="truncate">
+                                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">NSS SmileFiesta Certificate</div>
+                                        <div class="text-[9px] text-slate-400">Community Social Service</div>
+                                    </div>
+                                </div>
+                                <a href="/static/images/nss certificate-smilefiesta.pdf" target="_blank" class="px-2.5 py-1 text-[10px] bg-indigo-500/10 text-indigo-500 font-bold rounded-lg hover:bg-indigo-500 hover:text-white transition-all flex-shrink-0">Open PDF</a>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </section>
+        </section>
+
+        <!-- 7. Education Timeline Section -->
+        <section id="timeline" class="py-20 fade-on-scroll">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Education Timeline</h2>
+                <div class="h-1 w-20 bg-indigo-500 mx-auto rounded"></div>
+            </div>
+
+            <div class="max-w-3xl mx-auto relative border-l border-indigo-200 dark:border-indigo-800">
+                <!-- Timeline Item 1 -->
+                <div class="mb-10 ml-6 relative">
+                    <span class="absolute -left-[31px] top-1 flex items-center justify-center w-6 h-6 bg-indigo-600 text-white rounded-full ring-4 ring-slate-50 dark:ring-darkBg">
+                        <i class="fa-solid fa-book-open text-[10px]"></i>
+                    </span>
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50">
+                        <span class="inline-block px-2.5 py-0.5 mb-2 text-xs font-semibold bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-400 rounded-md">2023 - Present</span>
+                        <h3 class="text-lg font-bold">B.Tech in Information Technology</h3>
+                        <p class="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-2">Technical University (Active College)</p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">
+                            Developing algorithms, exploring compiler basics, studying networking structures, and maintaining a top CGPA performance. Currently entering the senior semesters.
+                        </p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs px-2.5 py-1 rounded">DSA</span>
+                            <span class="bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs px-2.5 py-1 rounded">Database Management</span>
+                            <span class="bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs px-2.5 py-1 rounded">Discrete Math</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <!-- Timeline Item 3 -->
+                <div class="ml-6 relative">
+                    <span class="absolute -left-[31px] top-1 flex items-center justify-center w-6 h-6 bg-indigo-600 text-white rounded-full ring-4 ring-slate-50 dark:ring-darkBg">
+                        <i class="fa-solid fa-award text-[10px]"></i>
+                    </span>
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50">
+                        <span class="inline-block px-2.5 py-0.5 mb-2 text-xs font-semibold bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-400 rounded-md">2022</span>
+                        <h3 class="text-lg font-bold">Higher Secondary Certification</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">
+                            Graduated with Distinction, majoring in Physics, Chemistry, and Advanced Mathematics. Awarded recognition for scoring full marks in mathematics exams.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Coding Profiles Section -->
+        <section id="coding-profiles" class="py-20 fade-on-scroll">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Coding Profiles & Stats</h2>
+                <div class="h-1 w-20 bg-indigo-500 mx-auto rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- LeetCode Card -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover-glow transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-orange-500 text-2xl"><i class="fa-solid fa-code"></i></span>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">LeetCode</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="text-4xl font-extrabold mb-1"><span id="lc-solved">--</span></div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">Problems Solved</div>
+                    </div>
+                    <div class="border-t border-slate-200/50 dark:border-slate-700/50 pt-3 text-xs space-y-1.5 text-slate-600 dark:text-slate-400">
+                        <div class="flex justify-between"><span>Easy:</span> <strong id="lc-easy" class="text-emerald-500">--</strong></div>
+                        <div class="flex justify-between"><span>Medium:</span> <strong id="lc-medium" class="text-orange-500">--</strong></div>
+                        <div class="flex justify-between"><span>Hard:</span> <strong id="lc-hard" class="text-red-500">--</strong></div>
+                    </div>
+                </div>
+
+                <!-- HackerRank Card -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover-glow transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-emerald-500 text-2xl"><i class="fa-brands fa-hackerrank"></i></span>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">HackerRank</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="text-3xl font-extrabold mb-1 flex items-center gap-1 text-indigo-500">
+                            <span>5 Stars</span>
+                        </div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">Problem Solving Badge</div>
+                    </div>
+                    <div class="border-t border-slate-200/50 dark:border-slate-700/50 pt-3 text-xs text-slate-600 dark:text-slate-400">
+                        <div class="flex justify-between"><span>Python Skill:</span> <strong class="text-emerald-500">5 Stars</strong></div>
+                        <div class="flex justify-between"><span>SQL queries:</span> <strong class="text-emerald-500">Gold Level</strong></div>
+                    </div>
+                </div>
+
+                <!-- CodeChef Card -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover-glow transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-amber-600 text-2xl"><i class="fa-solid fa-egg"></i></span>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">CodeChef</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="text-4xl font-extrabold mb-1"><span id="cc-rating">--</span></div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">Max Rating</div>
+                    </div>
+                    <div class="border-t border-slate-200/50 dark:border-slate-700/50 pt-3 text-xs text-slate-600 dark:text-slate-400">
+                        <div class="flex justify-between"><span>Division Level:</span> <strong id="cc-stars">--</strong></div>
+                        <div class="flex justify-between"><span>Ranking:</span> <strong class="text-indigo-500">Top 10%</strong></div>
+                    </div>
+                </div>
+
+                <!-- Codeforces Card -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover-glow transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-blue-500 text-2xl"><i class="fa-solid fa-award"></i></span>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Codeforces</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="text-4xl font-extrabold mb-1"><span id="cf-rating">--</span></div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">Current Rating</div>
+                    </div>
+                    <div class="border-t border-slate-200/50 dark:border-slate-700/50 pt-3 text-xs text-slate-600 dark:text-slate-400">
+                        <div class="flex justify-between"><span>Rank Title:</span> <strong id="cf-rank" class="text-sky-500">--</strong></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. GitHub Stats & Contribution Board -->
+        <section id="github" class="py-20 fade-on-scroll">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">GitHub Insights</h2>
+                <div class="h-1 w-20 bg-indigo-500 mx-auto rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Contribution Board simulation -->
+                <div class="lg:col-span-2 glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-calendar-days text-indigo-500"></i> Contributions
+                        </h3>
+                        <span class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Mock Heatmap Matrix</span>
+                    </div>
+                    <!-- Heatmap grid mimicking GitHub contribution board -->
+                    <div class="overflow-x-auto">
+                        <div class="min-w-[480px]">
+                            <div class="grid gap-1" style="grid-template-columns: repeat(24, minmax(0, 1fr));">
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/80"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/40"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/20"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-emerald-500/60"></div>
+                                <div class="w-3.5 h-3.5 rounded-sm bg-slate-200 dark:bg-slate-800"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
+                        <span>Less</span>
+                        <div class="flex items-center space-x-1.5">
+                            <span class="w-3.5 h-3.5 rounded bg-slate-200 dark:bg-slate-800"></span>
+                            <span class="w-3.5 h-3.5 rounded bg-emerald-500/20"></span>
+                            <span class="w-3.5 h-3.5 rounded bg-emerald-500/40"></span>
+                            <span class="w-3.5 h-3.5 rounded bg-emerald-500/60"></span>
+                            <span class="w-3.5 h-3.5 rounded bg-emerald-500/80"></span>
+                        </div>
+                        <span>More</span>
+                    </div>
+                </div>
+
+                <!-- GitHub Stats Side Panel -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold flex items-center gap-2 mb-6">
+                            <i class="fa-solid fa-code-fork text-purple-500"></i> Code Activity
+                        </h3>
+                        <div class="space-y-4 text-sm">
+                            <div class="flex justify-between items-center py-2.5 border-b border-slate-200/50 dark:border-slate-700/50">
+                                <span class="text-slate-500">Total Repositories</span>
+                                <span class="font-bold">24 Repos</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2.5 border-b border-slate-200/50 dark:border-slate-700/50">
+                                <span class="text-slate-500">Commit Streak</span>
+                                <span class="font-bold text-emerald-500">18 Days</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2.5">
+                                <span class="text-slate-500">Primary Languages</span>
+                                <span class="font-bold">Python, JS, C++</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 p-4 bg-purple-500/5 border border-purple-500/10 rounded-2xl flex items-center gap-3">
+                        <i class="fa-brands fa-github-alt text-2xl text-purple-500"></i>
+                        <span class="text-xs text-slate-500 dark:text-slate-400">Regularly committing automation scripts and database updates.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. Blog Section -->
+        <section id="blogs" class="py-20 fade-on-scroll">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Latest Blogs & Thoughts</h2>
+                <div class="h-1 w-20 bg-indigo-500 mx-auto rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Blog 1 -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 hover-glow transition-all duration-300">
+                    <span class="inline-block px-2.5 py-0.5 mb-3 text-xs font-semibold bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-400 rounded-md">Algorithms // Python</span>
+                    <h3 class="text-xl font-bold mb-2">Demystifying DSA with Python</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        Why writing clean, readable Python code is sometimes preferred for sorting problems and how to map time complexities using Python dictionaries.
+                    </p>
+                    <a href="#blog-post" onclick="alert('Blog details showing... (Mock dynamic render)')" class="text-xs font-bold text-indigo-500 flex items-center gap-1 hover:text-indigo-600">
+                        Read Post <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Blog 2 -->
+                <div class="glass-panel p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800/50 hover-glow transition-all duration-300">
+                    <span class="inline-block px-2.5 py-0.5 mb-3 text-xs font-semibold bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-400 rounded-md">AI // Mathematics</span>
+                    <h3 class="text-xl font-bold mb-2">The Math Behind AI Neural Networks</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        An intuitive overview of matrix multiplications, dot products, and activation functions for beginners looking to step into PyTorch or TensorFlow.
+                    </p>
+                    <a href="#blog-post" onclick="alert('Blog details showing... (Mock dynamic render)')" class="text-xs font-bold text-indigo-500 flex items-center gap-1 hover:text-indigo-600">
+                        Read Post <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. Contact Section -->
+        <section id="contact" class="py-20 fade-on-scroll">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Get In Touch</h2>
+                <div class="h-1 w-20 bg-indigo-500 mx-auto rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+                <!-- Info Column -->
+                <div class="lg:col-span-5 flex flex-col justify-between space-y-8 glass-panel p-8 rounded-3xl border border-slate-200/50 dark:border-slate-800/50">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Let's Discuss Projects!</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                            I am open to engineering internships, technical writing roles, web dev gigs, and collaborative open-source assignments. Fill out the form or reach out via socials!
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center"><i class="fa-solid fa-envelope"></i></div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 uppercase font-semibold">Email Me</div>
+                                <a href="mailto:jayrohit0310@gmail.com" class="text-sm font-medium hover:text-indigo-500">jayrohit0310@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center"><i class="fa-brands fa-linkedin-in"></i></div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 uppercase font-semibold">LinkedIn Profile</div>
+                                <a href="https://www.linkedin.com/in/jay-rohit-8204ab320?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="text-sm font-medium hover:text-indigo-500">linkedin.com/in/jay-rohit-8204ab320</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-500 flex items-center justify-center"><i class="fa-brands fa-instagram"></i></div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 uppercase font-semibold">Instagram Channel</div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center"><i class="fa-brands fa-whatsapp"></i></div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 uppercase font-semibold">WhatsApp Business</div>
+                                <a href="https://wa.me/9727856511" target="_blank" class="text-sm font-medium hover:text-indigo-500">9727856511</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-indigo-500/5 rounded-2xl text-xs text-slate-400 flex items-center justify-between">
+                        <span>Unique Visitor Count:</span>
+                        <strong class="text-indigo-500 text-sm" id="visitor-count-display">{{ visitor_count }}</strong>
+                    </div>
+                </div>
+
+                <!-- Form Column -->
+                <div class="lg:col-span-7 glass-panel p-8 rounded-3xl border border-slate-200/50 dark:border-slate-800/50">
+                    <form id="contact-form" class="space-y-6" onsubmit="handleFormSubmit(event)">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Your Name</label>
+                                <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-indigo-500 text-sm transition-colors" placeholder="Jayesh Sharma">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Email Address</label>
+                                <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-indigo-500 text-sm transition-colors" placeholder="your.name@domain.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Write Message</label>
+                            <textarea id="message" rows="5" required class="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-indigo-500 text-sm transition-colors" placeholder="Hi Jay, I checked out your stock portfolio tracker and would like to hire you for..."></textarea>
+                        </div>
+                        <button type="submit" id="form-submit-btn" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl text-center shadow-lg transition-colors flex items-center justify-center gap-2">
+                            Send Message <i class="fa-solid fa-paper-plane text-sm"></i>
+                        </button>
+                    </form>
+                    
+                    <!-- Alert Status Container -->
+                    <div id="contact-alert" class="hidden mt-4 p-4 rounded-xl text-sm font-semibold"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 13. Footer Section -->
+    <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200/50 dark:border-slate-800/50 mt-20 relative z-10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
+                <div>
+                    <h4 class="font-bold text-lg bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent mb-2">Jay Rohit</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">IT Student & Python Developer combining data, math, and frontend technologies.</p>
+                </div>
+                <div class="flex justify-center space-x-6 text-sm font-semibold">
+                    <a href="#about" class="hover:text-indigo-500">About</a>
+                    <a href="#projects" class="hover:text-indigo-500">Projects</a>
+                    <a href="#contact" class="hover:text-indigo-500">Contact</a>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-xs text-slate-500 dark:text-slate-400">&copy; 2026 Jay Rohit. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#hero" id="back-to-top" class="fixed bottom-6 left-6 z-50 p-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
+    <!-- Floating AI Assistant Chatbot Widget (Bottom Right) -->
+    <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
+        <!-- Floating Toggle Icon -->
+        <button id="chat-toggle" class="w-14 h-14 bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform hover-glow cursor-pointer relative">
+            <span class="absolute -top-1 -right-1 flex h-4 w-4">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-4 w-4 bg-pink-500 text-[8px] font-bold text-white items-center justify-center">1</span>
+            </span>
+            <i class="fa-regular fa-comment-dots text-2xl"></i>
+        </button>
+
+        <!-- Chat Panel container -->
+        <div id="chat-container" class="hidden fixed bottom-24 right-4 sm:right-6 w-[calc(100vw-32px)] sm:w-[380px] h-[450px] sm:h-[500px] z-50 glass-panel border border-slate-200/50 dark:border-slate-800/50 rounded-3xl shadow-2xl flex flex-col justify-between overflow-hidden scale-95 opacity-0 transition-all duration-300">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-4 text-white flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"><i class="fa-solid fa-infinity"></i></div>
+                    <div>
+                        <h4 class="font-bold text-xs">Ask Jay Bot</h4>
+                        <span class="text-[9px] text-indigo-200 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5"></span>Online & Ready</span>
+                    </div>
+                </div>
+                <button id="chat-close" class="text-white/80 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <!-- Messages Window -->
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-white/70 dark:bg-darkBg/70">
+                <!-- Bot Intro Message -->
+                <div class="flex justify-start mb-3">
+                    <div class="max-w-[85%] px-4 py-2.5 rounded-2xl text-sm bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-tl-none border border-slate-200/50 dark:border-slate-700/50">
+                        Hi! I am Jay's AI Assistant. Ask me about his **skills**, **projects**, 
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suggestion Chips -->
+            <div class="px-4 py-2 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-200/20 dark:border-slate-800/20 flex gap-2 overflow-x-auto scrollbar-none whitespace-nowrap">
+                <button data-question="What are your skills?" class="suggestion-chip px-3 py-1 bg-white dark:bg-slate-800 text-xs font-semibold text-indigo-600 dark:text-indigo-400 rounded-full border border-indigo-500/10 shadow-sm cursor-pointer hover:bg-slate-100">Skills 💻</button>
+                <button data-question="Show me your projects" class="suggestion-chip px-3 py-1 bg-white dark:bg-slate-800 text-xs font-semibold text-indigo-600 dark:text-indigo-400 rounded-full border border-indigo-500/10 shadow-sm cursor-pointer hover:bg-slate-100">Projects 🚀</button>
+                <button data-question="How can I contact you?" class="suggestion-chip px-3 py-1 bg-white dark:bg-slate-800 text-xs font-semibold text-indigo-600 dark:text-indigo-400 rounded-full border border-indigo-500/10 shadow-sm cursor-pointer hover:bg-slate-100">Contact 📧</button>
+            </div>
+
+            <!-- Input area -->
+            <div class="p-3 bg-slate-50 dark:bg-slate-900 border-t border-slate-200/50 dark:border-slate-800/50 flex items-center space-x-2">
+                <input type="text" id="chat-input" placeholder="Type a message..." class="flex-1 bg-white dark:bg-slate-800 text-sm px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-indigo-500 transition-colors">
+                <button id="chat-send" class="p-2.5 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors"><i class="fa-solid fa-paper-plane text-sm"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Preview Modal -->
+    <div id="cert-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="relative max-w-4xl w-full bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-white hover:text-slate-300 z-10 bg-slate-800/60 p-2.5 rounded-full"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="p-2">
+                <img id="modal-img" src="" alt="Certificate Preview" class="w-full h-auto max-h-[80vh] object-contain rounded-2xl">
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Specific Script logic -->
+    <script>
+        // Modal logic
+        function openModal(imgSrc) {
+            const modal = document.getElementById('cert-modal');
+            const modalImg = document.getElementById('modal-img');
+            if (modal && modalImg) {
+                modalImg.src = imgSrc;
+                modal.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden'); // Lock background scroll
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('cert-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+
+        // Contact Form Submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const alertBox = document.getElementById('contact-alert');
+            const submitBtn = document.getElementById('form-submit-btn');
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (alertBox) alertBox.className = 'hidden';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `Sending... <i class="fa-solid fa-spinner animate-spin"></i>`;
+            }
+
+            fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, email, message })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `Send Message <i class="fa-solid fa-paper-plane text-sm"></i>`;
+                }
+
+                if (alertBox) {
+                    alertBox.classList.remove('hidden');
+                    if (data.success) {
+                        alertBox.className = 'mt-4 p-4 rounded-xl text-sm font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20';
+                        alertBox.textContent = data.message;
+                        document.getElementById('contact-form').reset();
+                    } else {
+                        alertBox.className = 'mt-4 p-4 rounded-xl text-sm font-semibold bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20';
+                        alertBox.textContent = data.error || "An error occurred. Please try again.";
+                    }
+                }
+            })
+            .catch(err => {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `Send Message <i class="fa-solid fa-paper-plane text-sm"></i>`;
+                }
+                if (alertBox) {
+                    alertBox.classList.remove('hidden');
+                    alertBox.className = 'mt-4 p-4 rounded-xl text-sm font-semibold bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20';
+                    alertBox.textContent = "Connection error. Please try again later.";
+                }
+                console.error(err);
+            });
+        }
+    </script>
+
+    <!-- Client-side Scripts -->
+    <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>
