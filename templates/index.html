@@ -152,7 +152,7 @@
                         <a href="#contact" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-xl text-center shadow-lg hover:shadow-indigo-500/20 hover-glow transition-all duration-300">
                             Contact Me <i class="fa-solid fa-paper-plane ml-2"></i>
                         </a>
-                        <a href="static/resume.pdf" target="_blank" class="w-full sm:w-auto px-8 py-3.5 bg-slate-200 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-medium rounded-xl text-center border border-slate-300/50 dark:border-slate-700/50 transition-all duration-300">
+                        <a href="/static/resume.pdf" download="Jay_Rohit_Resume.pdf" target="_blank" class="w-full sm:w-auto px-8 py-3.5 bg-slate-200 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-medium rounded-xl text-center border border-slate-300/50 dark:border-slate-700/50 transition-all duration-300">
                             Download Resume <i class="fa-solid fa-download ml-2"></i>
                         </a>
                     </div>
@@ -1411,7 +1411,16 @@
 
     <!-- Page Specific Script logic -->
     <script>
-        // Modal logic
+        // Certificate and Modal logic
+        function openCertificate(fileUrl) {
+            if (!fileUrl) return;
+            if (fileUrl.toLowerCase().endsWith('.pdf')) {
+                window.open(fileUrl, '_blank');
+            } else {
+                openModal(fileUrl);
+            }
+        }
+
         function openModal(imgSrc) {
             const modal = document.getElementById('cert-modal');
             const modalImg = document.getElementById('modal-img');
